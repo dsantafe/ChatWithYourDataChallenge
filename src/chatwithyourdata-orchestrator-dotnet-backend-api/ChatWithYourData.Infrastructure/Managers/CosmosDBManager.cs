@@ -87,7 +87,21 @@
                 if (jsonObject[prop] != null)
                 {
                     if (jsonObject[prop] is JArray array)
-                        values.AddRange(array.Select(arrItem => arrItem.ToString()));
+                    {
+                        // Para cada objeto en el array, combina todas sus propiedades en un solo string
+                        var arrayValues = array.Select(arrItem =>
+                        {
+                            var obj = arrItem as JObject;
+                            // Concatena todas las propiedades clave-valor del objeto en un solo string
+                            var propertyPairs = obj?.Properties()
+                                .Select(p => $"{p.Name}: {p.Value}")
+                                .ToList();
+
+                            return propertyPairs != null ? string.Join(", ", propertyPairs) : "NULL";
+                        });
+
+                        values.Add(string.Join(", ", arrayValues));
+                    }
                     else
                         values.Add(jsonObject[prop].ToString());
                 }
