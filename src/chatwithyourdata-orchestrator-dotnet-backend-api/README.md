@@ -43,9 +43,141 @@ Configure these variables in your development environment:
 }
 ```
 
-
-
 Replace placeholder values (`YOUR_OPENAI_API_KEY`, `YOUR_SERVER`, `YOUR_USER_ID`, `YOUR_PASSWORD`, `YOUR_COSMOS_KEY`, and `YOUR_SQLITE_AUTH_TOKEN`) with your actual credentials.
+
+# Database Setup
+
+This guide provides the SQL scripts required to set up the necessary database tables for managing user tokens and tracking token usage history.
+
+## Prerequisites
+
+- SQL Server
+- A database (e.g., `UserTokenDB`) where these tables will be created
+
+## Required Database Scripts
+
+```sql
+-- UserTokens Table
+CREATE TABLE [dbo].[UserTokens] (
+    [ID] UNIQUEIDENTIFIER PRIMARY KEY,
+    [Username] VARCHAR(255) NOT NULL,
+    [PasswordHash] VARCHAR(255) NOT NULL,
+    [TokensAvailable] INT NOT NULL
+);
+
+-- UserTokensHistory Table
+CREATE TABLE [dbo].[UserTokensHistory] (
+    [ID] UNIQUEIDENTIFIER PRIMARY KEY,
+    [UserTokensID] UNIQUEIDENTIFIER NOT NULL,
+    [Year] INT NOT NULL,
+    [Month] INT NOT NULL,
+    [TokensConsumed] INT NOT NULL,
+    [RecordedAt] DATETIME NOT NULL
+);
+
+-- Sample Data for UserTokens
+INSERT INTO [dbo].[UserTokens] (ID, Username, PasswordHash, TokensAvailable)
+VALUES 
+    (NEWID(), 'alice', 'YWxpY2VQYXNzd29yZA==', 10000),
+    (NEWID(), 'bob', 'Ym9iUGFzc3dvcmQ=', 10000),
+    (NEWID(), 'charlie', 'Y2hhcmxpZVBhc3N3b3Jk', 10000);
+```
+
+## Employees Database Scripts
+
+- MSSQL
+
+```sql
+-- Tabla de Employees
+CREATE TABLE Employees (
+    EmployeeID INT PRIMARY KEY,
+    DUI VARCHAR(10) NOT NULL UNIQUE,
+    FullName VARCHAR(255) NOT NULL,
+    Position VARCHAR(100) NOT NULL,
+    Department VARCHAR(100) NOT NULL,
+    HireDate DATE NOT NULL,
+    Salary DECIMAL(10, 2) NOT NULL
+);
+
+-- Tabla de Attendance
+CREATE TABLE Attendance (
+    AttendanceID INT PRIMARY KEY AUTOINCREMENT,
+    EmployeeID INT NOT NULL,
+    Date DATE NOT NULL,
+    CheckIn TIME NOT NULL,
+    CheckOut TIME NOT NULL,
+    FOREIGN KEY (EmployeeID) REFERENCES Employees(EmployeeID)
+);
+```
+
+- SQLite
+
+```sql
+-- Tabla EmployeeOnboarding
+CREATE TABLE EmployeeOnboarding (
+    EmployeeID INT NOT NULL,
+    Step VARCHAR(50) NOT NULL,
+    Completed BIT NOT NULL,
+    CompletionDate DATE NULL,
+    PRIMARY KEY (EmployeeID, Step)
+);
+
+-- Tabla TrainingSessions
+CREATE TABLE TrainingSessions (
+    SessionID INT PRIMARY KEY,
+    EmployeeID INT NOT NULL,
+    SessionTitle VARCHAR(100) NOT NULL,
+    Date DATE NOT NULL
+);
+```
+
+- CosmosDB
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "employee_id": { "type": "string" },
+    "full_name": { "type": "string" },
+    "contact_info": {
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "phone": { "type": "string" }
+      }
+    },
+    "position": { "type": "string" },
+    "skills": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "certifications": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "issued_date": { "type": "string" }
+        }
+      }
+    },
+    "feedback": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "date": { "type": "string" },
+          "reviewer": { "type": "string" },
+          "comments": { "type": "string" }
+        }
+      }
+    },
+    "DUI": { "type": "string" },
+    "id": { "type": "string" }
+  },
+  "required": ["employee_id", "full_name", "contact_info", "position", "DUI", "id"]
+}
+```
 
 ## Setup and Installation
 1. **Clone the repository**:
