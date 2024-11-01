@@ -1,0 +1,19 @@
+[theme]
+# Colores principales
+primaryColor = "#00CED1"  # Turquesa brillante para acentos
+backgroundColor = "#1A202C"  # Azul oscuro para el fondo
+secondaryBackgroundColor = "#2D3748"  # Gris azulado para elementos secundarios
+textColor = "#F7FAFC"  # Blanco suave para texto
+
+# Tipografía y estilos
+font = "Inter"  # Fuente moderna y legible
+base = "light"
+
+# Personalizaciones adicionales
+[theme.button]
+backgroundColor = "#00CED1"
+textColor = "#1A202C"
+
+[theme.textInput]
+backgroundColor = "#2D3748"
+textColor = "#F7FAFC"
