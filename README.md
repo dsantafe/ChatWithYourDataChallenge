@@ -1,7 +1,10 @@
 ![Banner](./assets/banner.png)
 
 # DataVerse: Interactive & Efficient Chat 
-## [Watch in Action](https://youtu.be/nuuE4h0uz3k) 
+<a href="https://youtu.be/nuuE4h0uz3k" target="blank">
+	<img align="center" src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" alt="DataVerse" height="23px" width="33px" />
+	Watch in Action
+</a>
 
 ## Project Description
 
