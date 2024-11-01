@@ -1,9 +1,7 @@
 ![Banner](./assets/banner.png)
 
-# DataVerse: Interactive & Efficient Chat
-
-<!-- Incrustar un video de YouTube en Markdown -->
-<iframe width="560" height="315" src="https://www.youtube.com/embed/nuuE4h0uz3k" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+# DataVerse: Interactive & Efficient Chat 
+## [Watch in Action](https://youtu.be/nuuE4h0uz3k) 
 
 ## Project Description
 
